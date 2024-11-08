@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import { HeroHighlightDemo } from "@/components/home/Home";
 import { IconCloudDemo } from "@/components/home/IconCloud";
 import { LampDemo } from "@/components/home/Lamp";
+import { PlaceholdersAndVanishInputDemo } from "@/components/home/Waitlist";
 
 
 
@@ -123,6 +124,7 @@ const HomePage = async () => {
 
             <LampDemo />
 
+            <PlaceholdersAndVanishInputDemo />
           
 
          

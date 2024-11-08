@@ -4,7 +4,14 @@ import { HeroHighlight, Highlight } from "../ui/hero-highlight";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
+import { useEffect } from "react";
+import { useTheme } from "next-themes";
 export function HeroHighlightDemo() {
+  const { setTheme } = useTheme()
+  useEffect(() => {
+    // Set the theme to dark when this page mounts
+    setTheme('dark');
+  }, []);
   return (
     <HeroHighlight>
       <motion.h1
