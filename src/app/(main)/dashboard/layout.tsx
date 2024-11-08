@@ -12,6 +12,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/utils";
+import ThemeSwitch from "@/components/dashboard/ThemeSwitch";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const links = [
@@ -67,9 +68,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div>
+            <ThemeSwitch/>
             <SidebarLink
               link={{
-                label: "Manu Arora",
+                label: "Jiya Gupta",
                 href: "#",
                 icon: (
                   <Image
@@ -108,7 +110,7 @@ const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Acet Labs
+        WiseMe
       </motion.span>
     </Link>
   );
