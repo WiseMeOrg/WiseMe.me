@@ -16,6 +16,7 @@ import {
 import { cn, NAV_LINKS } from "@/utils";
 import { useAuth } from "@clerk/nextjs";
 import { LucideIcon, Menu, X } from "lucide-react";
+import { ZapIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from 'react';
 
@@ -51,11 +52,12 @@ const MobileNavbar = () => {
                                 </Link>
                             ) : (
                                 <>
-                                    <Link href="/auth/sign-in" className={buttonVariants({ variant: "outline", className: "w-full" })}>
+                                    {/* <Link href="/auth/sign-in" className={buttonVariants({ variant: "outline", className: "w-full" })}>
                                         Sign In
-                                    </Link>
-                                    <Link href="/auth/sign-up" className={buttonVariants({ className: "w-full" })}>
-                                        Sign Up
+                                    </Link> */}
+                                    <Link href="/auth/sign-up" className={buttonVariants({ size: "sm", })}>
+                                        Get Started
+                                        <ZapIcon className="size-3.5 ml-1.5 text-orange-500 fill-orange-500" />
                                     </Link>
                                 </>
                             )}
