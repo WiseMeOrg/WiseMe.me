@@ -33,7 +33,7 @@ export function HeroHighlightDemo() {
                         </p>
                         <div className="flex items-center justify-center whitespace-nowrap gap-4 z-50">
                             <Button asChild>
-                                <Link href="/" className="flex items-center">
+                                <Link href="#waitlist" className="flex items-center">
                                     Craft Your Jounrney Now
                                     <ArrowRightIcon className="w-4 h-4 ml-2" />
                                 </Link>
