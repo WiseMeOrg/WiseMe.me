@@ -5,7 +5,7 @@ import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tab
 import Image from "next/image";
 import ThemeSwitch from "@/components/dashboard/ThemeSwitch";
 import Link from "next/link";
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface CustomSidebarProps {
   open: boolean;
@@ -78,9 +78,16 @@ const CustomSidebar: React.FC<CustomSidebarProps> = ({ open, setOpen }) => {
 };
 
 const Logo = () => (
-  <Link href="#" className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20">
-    <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-medium text-black dark:text-white whitespace-pre">
+  <Link href="#" className="font-black flex space-x-2 gap-4 pt-10 items-center text-2xl text-black py-1 relative z-20">
+    <Image
+      src="/assets/logo.png"
+      alt="WiseMe"
+      width={28}
+      height={28}
+      quality={100}
+      className="rounded-sm bg-foreground/10  "
+    />
+    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-medium  text-black dark:text-white whitespace-pre">
       WiseMe
     </motion.span>
   </Link>
