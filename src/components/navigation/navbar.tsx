@@ -123,7 +123,10 @@ const Navbar = () => {
                                 {/* <Link href="/auth/sign-in" className={buttonVariants({ size: "sm", variant: "ghost" })}>
                                     Sign In
                                 </Link> */}
-                                <Link href="/auth/sign-up" className={buttonVariants({ size: "sm", })}>
+                                <Link
+                                //  href="/auth/sign-up" 
+                                 href="#waitlist" 
+                                 className={buttonVariants({ size: "sm", })}>
                                     Get Started
                                     <ZapIcon className="size-3.5 ml-1.5 text-orange-500 fill-orange-500" />
                                 </Link>

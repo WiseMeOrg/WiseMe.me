@@ -18,7 +18,7 @@ export const LampContainer = ({
                 className
             )}
         >
-            <div className="relative flex w-full flex-1 scale-y-125 items-center justify-center isolate z-0 ">
+            <div id="waitlist" className="relative flex w-full flex-1 scale-y-125 items-center justify-center isolate z-0 ">
                 <motion.div
                     initial={{ opacity: 0.5, width: "15rem" }}
                     whileInView={{ opacity: 1, width: "30rem" }}
@@ -61,7 +61,7 @@ export const LampContainer = ({
                         duration: 0.8,
                         ease: "easeInOut",
                     }}
-                    className="absolute inset-auto z-30 h-36 w-64 -translate-y-[6rem] rounded-full bg-purple-400 blur-2xl"
+                    className="absolute inset-auto z-30 h-36 w-64 -translate-y-[6rem] rounded-full bg-[#6EC1E4] blur-2xl"
                 ></motion.div>
                 <motion.div
                     initial={{ width: "15rem" }}
@@ -71,7 +71,7 @@ export const LampContainer = ({
                         duration: 0.8,
                         ease: "easeInOut",
                     }}
-                    className="absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] bg-purple-400"
+                    className="absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] bg-[#6EC1E4]"
                 ></motion.div>
 
                 <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-background "></div>
