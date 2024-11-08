@@ -15,6 +15,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { HeroHighlightDemo } from "@/components/home/Home";
 import { IconCloudDemo } from "@/components/home/IconCloud";
+import { LampDemo } from "@/components/home/Lamp";
+
 
 
 const HomePage = async () => {
@@ -118,6 +120,8 @@ const HomePage = async () => {
 
 
             <IconCloudDemo/>
+
+            <LampDemo />
 
           
 
