@@ -2,23 +2,23 @@ import { Metadata } from "next";
 
 export const generateMetadata = ({
     title = `${process.env.NEXT_PUBLIC_APP_NAME} - Accelerate Your Learning Journey with Power Of AI`,
-    description = `${process.env.NEXT_PUBLIC_APP_NAME} Craft your personalised learning path`,
+    description = `${process.env.NEXT_PUBLIC_APP_NAME} - Craft your personalised learning path`,
     image = "/thumbnail.png",
     icons = [
         {
             rel: "apple-touch-icon",
             sizes: "32x32",
-            url: "/apple-touch-icon.png"
+            url: "/favicon.png"
         },
         {
             rel: "icon",
             sizes: "32x32",
-            url: "/favicon-32x32.png"
+            url: "/favicon.png"
         },
         {
             rel: "icon",
             sizes: "16x16",
-            url: "/favicon-16x16.png"
+            url: "/favicon.png"
         },
     ],
     noIndex = false

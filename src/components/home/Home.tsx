@@ -27,7 +27,7 @@ export function HeroHighlightDemo() {
         Power Of AI
         </Highlight>
         <p className="mb-8 mt-8 text-lg tracking-tight text-muted-foreground md:text-xl text-balance">
-                            Creaft your Personalised Learning Roadmap at WiseMe
+                            Craft your Personalised Learning Roadmap at WiseMe
                             <br className="hidden md:block" />
                             <span className="hidden md:block">Optimize . Learn . Connect . Achieve</span>
                         </p>

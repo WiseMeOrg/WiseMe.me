@@ -1,4 +1,5 @@
 import { Icons, SignInForm } from "@/components";
+import Image from "next/image";
 import Link from "next/link";
 
 const SignInPage = () => {
@@ -6,7 +7,14 @@ const SignInPage = () => {
         <div className="flex flex-col items-start max-w-sm mx-auto h-dvh overflow-hidden pt-4 md:pt-20">
             <div className="flex items-center w-full py-8 border-b border-border/80">
                 <Link href="/#home" className="flex items-center gap-x-2">
-                    <Icons.logo className="w-6 h-6" />
+                    <Image
+                        src="/assets/logo.png"
+                        alt="WiseMe"
+                        width={28}
+                        height={28}
+                        quality={100}
+                        className="rounded-sm bg-foreground/10  "
+                    />
                     <h1 className="text-lg font-medium">
                         WiseMe
                     </h1>

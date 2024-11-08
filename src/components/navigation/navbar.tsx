@@ -78,7 +78,7 @@ const Navbar = () => {
                                                                             All Features
                                                                         </h6>
                                                                         <p className="text-sm leading-tight text-muted-foreground">
-                                                                        Creaft your Personalised Learning Roadmap with AI
+                                                                        Craft your Personalised Learning Roadmap with AI
                                                                         </p>
                                                                     </Link>
                                                                 </NavigationMenuLink>
