@@ -5,7 +5,7 @@ import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input"
 export function PlaceholdersAndVanishInputDemo() {
   const placeholders = [
     "Learn the wise way! Email.",
-    "Write your email"
+    "Enter your email"
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +17,7 @@ export function PlaceholdersAndVanishInputDemo() {
     
     
     try {
-      const response = await fetch("/api/v1/join-waitlist", {
+      const response = await fetch("https://wiseme.me/api/v1/join-waitlist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,10 +37,9 @@ export function PlaceholdersAndVanishInputDemo() {
   };
 
   return (
-    <div className="h-[40rem] flex flex-col justify-center items-center px-4">
-      <h2 className="mb-10 sm:mb-20 text-xl text-center sm:text-5xl dark:text-white text-white">
-        Join us
-      </h2>
+    <div className="h-[45rem] mt-[-31rem] md:mt-[-29rem] flex flex-col justify-center items-center px-4">
+      <h2 className="mb-16 z-10 sm:mb-20 md:text-xl text-center text-lg  md:w-[50vw] dark:text-white text-white">
+      Join us to get early access, notified as soon as registration opens, priority access to our platform      </h2>
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={handleChange}
