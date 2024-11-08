@@ -1,34 +1,46 @@
 'use client'
 
-import { FiSun, FiMoon } from "react-icons/fi"
-import { useState, useEffect } from 'react'
-import { useTheme } from 'next-themes'
-import Image from "next/image"
+import { FiSun, FiMoon } from "react-icons/fi";
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
+import { motion } from "framer-motion";
 
 export default function ThemeSwitch() {
-  const [mounted, setMounted] = useState(false)
-  const { setTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { setTheme, resolvedTheme } = useTheme();
 
-  useEffect(() =>  setMounted(true), [])
+  useEffect(() => setMounted(true), []);
 
-  if (!mounted) return (
-    <Image
-      src="data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg=="
-      width={36}
-      height={36}
-      sizes="36x36"
-      alt="Loading Light/Dark Toggle"
-      priority={false}
-      title="Loading Light/Dark Toggle"
-    />
-  )
-
-  if (resolvedTheme === 'dark') {
-    return <FiSun className="stroke-white cursor-pointer"  onClick={() => setTheme('light')} />
+  if (!mounted) {
+    return (
+      <div className="w-8 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+        <span className="loader"></span>
+      </div>
+    );
   }
 
-  if (resolvedTheme === 'light') {
-    return <FiMoon className="stroke-black  cursor-pointer" onClick={() => setTheme('dark')} />
-  }
+  const isDark = resolvedTheme === 'dark';
 
+  return (
+    <div
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      className="relative w-9 h-20 flex flex-col items-center bg-[#D9D9D9] bg-opacity-20 rounded-full cursor-pointer p-1 py-2"
+    >
+      {/* Animated Circle */}
+      <motion.div
+        className={`absolute w-6 h-8 rounded-xl ${isDark ? 'bg-[#707279]' : 'bg-white'}`}
+        layout
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        style={{
+          top: isDark ? 'calc(100% - 39px)' : '5px',
+        }}
+      />
+      
+      {/* Sun and Moon icons */}
+      <div className="relative flex flex-col justify-between h-full py-1 gap-2">
+        <FiSun className={`w-5 h-5 ${isDark ? 'text-gray-400' : 'text-yellow-500'}`} />
+        <FiMoon className={`w-5 h-5 ${isDark ? 'text-white' : 'text-gray-400'}`} />
+      </div>
+    </div>
+  );
 }
