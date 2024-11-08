@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/utils";
 import ThemeSwitch from "@/components/dashboard/ThemeSwitch";
-
+import { ThemeProvider } from "next-themes";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const links = [
     {
@@ -49,6 +49,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
+    <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+
     <div
       className={cn(
         " flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 border border-neutral-200 dark:border-neutral-700 overflow-hidden",
@@ -95,6 +97,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
     </div>
+    </ThemeProvider>
   );
 }
 

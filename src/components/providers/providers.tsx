@@ -13,13 +13,13 @@ const Providers = ({ children }: Props) => {
     const client = new QueryClient();
 
     return (
-        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+        // <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
             <QueryClientProvider client={client}>
                 <ClerkProvider>
                     {children}
                 </ClerkProvider>
             </QueryClientProvider>
-        </ThemeProvider>
+        // </ThemeProvider>
     )
 };
 
