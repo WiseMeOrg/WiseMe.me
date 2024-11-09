@@ -5,6 +5,7 @@ import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input"
 
 export function PlaceholdersAndVanishInputDemo() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const emailRef = useRef("");
 
   const placeholders = [
@@ -20,12 +21,16 @@ export function PlaceholdersAndVanishInputDemo() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     emailRef.current = value;
+    if (errorMessage) {
+      setErrorMessage("");
+    }
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (!validateEmail(emailRef.current)) {
+      setErrorMessage("Please enter a valid email address");
       return;
     }
 
@@ -43,14 +48,21 @@ export function PlaceholdersAndVanishInputDemo() {
       if (response.ok) {
         console.log("Submission successful:", data);
         setShowSuccessMessage(true);
+        setErrorMessage("");
         if (e.target instanceof HTMLFormElement) {
           e.target.reset();
         }
         emailRef.current = "";
       } else {
+        if (response.status === 400) {
+          setErrorMessage("Email is already registered");
+        } else {
+          setErrorMessage("Something went wrong. Please enter a valid email address");
+        }
         console.error("Error submitting:", data);
       }
     } catch (error) {
+      setErrorMessage("Connection error. Please try again later.");
       console.error("Request failed:", error);
     }
   };
@@ -62,6 +74,11 @@ export function PlaceholdersAndVanishInputDemo() {
           <h2 className="mb-16 z-10 sm:mb-20 md:text-xl text-center text-lg md:w-[50vw] dark:text-white text-white">
             Join us to get early access, notified as soon as registration opens, priority access to our platform
           </h2>
+          {errorMessage && (
+            <div className="mb-4 text-red-500 dark:text-red-400 text-center">
+              {errorMessage}
+            </div>
+          )}
           <PlaceholdersAndVanishInput
             placeholders={placeholders}
             onChange={handleChange}
