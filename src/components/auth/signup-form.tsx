@@ -39,6 +39,7 @@ const SignUpForm = () => {
         setIsUpdating(true);
 
         try {
+            console.log("******:",name)
             await signUp.create({
                 emailAddress: email,
                 password,

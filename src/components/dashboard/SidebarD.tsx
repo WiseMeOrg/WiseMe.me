@@ -11,37 +11,21 @@ interface CustomSidebarProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
+interface LinkItem {
+  label: string;
+  href: string;
+  icon: JSX.Element;
+}
 
 const CustomSidebar: React.FC<CustomSidebarProps> = ({ open, setOpen }) => {
-  const links = [
-    {
-      label: "Dashboard",
-      href: "#",
-      icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Profile",
-      href: "#",
-      icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Settings",
-      href: "#",
-      icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Logout",
-      href: "#",
-      icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
+  const links : LinkItem[] = [
+    // {
+      //   label: "",
+      //   href: "#",
+      //   icon: (
+      //     <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      //   ),
+    // }
   ];
 
   return (
@@ -49,36 +33,24 @@ const CustomSidebar: React.FC<CustomSidebarProps> = ({ open, setOpen }) => {
       <SidebarBody className="justify-between gap-10">
         <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <Logo />
+
+    <SidebarLink link={ {label:"New", href:"/dashboard/journey/new",icon: <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />}} />
+
           <div className="mt-8 flex flex-col gap-2">
-            {links.map((link, idx) => (
+            {links?.length > 0 && links.map((link, idx) => (
               <SidebarLink key={idx} link={link} />
             ))}
           </div>
         </div>
-        <div>
-          <SidebarLink
-            link={{
-              label: "Jiya Gupta",
-              href: "#",
-              icon: (
-                <Image
-                  src=""
-                  className="h-7 w-7 flex-shrink-0 rounded-full"
-                  width={50}
-                  height={50}
-                  alt="Avatar"
-                />
-              ),
-            }}
-          />
-        </div>
+        {/* <div>
+        </div> */}
       </SidebarBody>
     </Sidebar>
   );
 };
 
 const Logo = () => (
-  <Link href="#" className="font-black flex space-x-2 gap-4 pt-10 items-center text-2xl text-black py-1 relative z-20">
+  <Link href="#" className="font-black flex space-x-2 gap-4 pt-10 items-center mb-8 text-2xl text-black py-1 relative z-20">
     <Image
       src="/assets/logo.png"
       alt="WiseMe"

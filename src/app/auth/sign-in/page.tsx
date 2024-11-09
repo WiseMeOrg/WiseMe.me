@@ -38,9 +38,9 @@ const SignInPage = () => {
             <div className="flex items-start mt-auto border-t border-border/80 py-6 w-full">
                 <p className="text-sm text-muted-foreground">
                     Don&apos;t have an account?{" "}
-                    {/* <Link href="/auth/sign-up" className="text-primary">
+                    <Link href="/auth/sign-up" className="text-primary">
                         Sign up
-                    </Link> */}
+                    </Link>
                 </p>
             </div>
         </div>
