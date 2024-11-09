@@ -28,7 +28,7 @@ export function PlaceholdersAndVanishInputDemo() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!validateEmail(emailRef.current)) {
       setErrorMessage("Please enter a valid email address");
       return;
@@ -42,9 +42,9 @@ export function PlaceholdersAndVanishInputDemo() {
         },
         body: JSON.stringify({ email: emailRef.current }),
       });
-      
+
       const data = await response.json();
-      
+
       if (response.ok) {
         console.log("Submission successful:", data);
         setShowSuccessMessage(true);
@@ -86,9 +86,15 @@ export function PlaceholdersAndVanishInputDemo() {
           />
         </>
       ) : (
-        <h2 className="mb-16 z-10 sm:mb-20 md:text-xl text-center text-lg md:w-[50vw] dark:text-white text-white">
-          Welcome to path of becoming a Wise learner
-        </h2>
+        <div className="flex justify-center items-center p-8">
+          <div className="relative rounded-lg bg-gradient-to-br from-gray-700 via-gray-800 to-black p-1 shadow-xl">
+            <div className="bg-gradient-to-br from-gray-600/20 via-gray-700/20 to-gray-800/20 rounded-lg p-6 backdrop-blur-sm">
+              <h2 className="mb-16 sm:mb-20 text-lg md:text-xl text-center md:w-[50vw] text-white font-semibold">
+                Welcome to path of becoming a Wise learner
+              </h2>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
