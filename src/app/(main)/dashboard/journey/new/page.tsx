@@ -4,9 +4,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { Loader2, Send, Mic } from 'lucide-react';
 
-const New = () => {
+interface Message {
+  id: string;
+  type: 'bot' | 'user';
+  content: string;
+  options?: string[];
+  answered?: boolean;
+  timestamp?: string;
+  isLoading?: boolean;
+  gif?: boolean;
+}
+
+interface CourseResponse {
+  id: string;
+  // Add other properties that the API returns
+}
+
+const New: React.FC = () => {
   const router = useRouter();
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       type: 'bot',
@@ -16,12 +32,12 @@ const New = () => {
       answered: false
     }
   ]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedTech, setSelectedTech] = useState(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [selectedTech, setSelectedTech] = useState<string | null>(null);
 
-  const timeOptions = ['3 days', '5 days', '1 week', '2 week', '3 weeks', 'Customise'];
+  const timeOptions: string[] = ['3 days', '5 days', '1 week', '2 week', '3 weeks', 'Customise'];
 
-  const handleTechSelect = (tech, messageId) => {
+  const handleTechSelect = (tech: string, messageId: string): void => {
     setMessages(prevMessages => 
       prevMessages.map(msg => 
         msg.id === messageId ? { ...msg, answered: true } : msg
@@ -47,7 +63,7 @@ const New = () => {
     ]);
   };
 
-  const handleTimeSelect = async (time, messageId) => {
+  const handleTimeSelect = async (time: string, messageId: string): Promise<void> => {
     setMessages(prevMessages => [
       ...prevMessages.map(msg => 
         msg.id === messageId ? { ...msg, answered: true } : msg
@@ -60,7 +76,6 @@ const New = () => {
       }
     ]);
 
-    // Add loading message with GIF and keep it visible
     const loadingMessageId = Date.now().toString() + '2';
     setMessages(prevMessages => [
       ...prevMessages,
@@ -91,7 +106,7 @@ const New = () => {
         throw new Error('Failed to fetch course data');
       }
 
-      const data = await response.json();
+      const data: CourseResponse = await response.json();
       
       setMessages(prevMessages => [
         ...prevMessages,
