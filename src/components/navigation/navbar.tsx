@@ -127,7 +127,7 @@ const Navbar = () => {
                                  href="/auth/sign-up" 
                                 //  href="#waitlist" 
                                  className={buttonVariants({ size: "sm", })}>
-                                    Get Started
+                                    Get Started...
                                     <ZapIcon className="size-3.5 ml-1.5 text-orange-500 fill-orange-500" />
                                 </Link>
                             </div>
