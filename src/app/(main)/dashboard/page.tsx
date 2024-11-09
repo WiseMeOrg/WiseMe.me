@@ -16,9 +16,7 @@ const DashboardPage = () => {
             <h1 className="text-xl font-medium">
                 Welcome {user?.firstName}!
             </h1>
-            <p className="text-gray-500 mt-2">
-                You are signed in.
-            </p>
+           
             <div className="flex items-center justify-center gap-4 mt-4">
                 <Button onClick={() => router.push("/")} variant="outline">
                     Back to home
