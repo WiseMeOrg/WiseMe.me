@@ -1,55 +1,52 @@
-// components/ui/sidebar/NavSidebar.tsx
 import React, { Dispatch, SetStateAction } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/side-nav";
-import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
+import { IconSettings } from "@tabler/icons-react";
 import Image from "next/image";
 import ThemeSwitch from "@/components/dashboard/ThemeSwitch";
 import Link from "next/link";
-import { motion } from 'framer-motion';
-import { HomeIcon, MessageCircleReplyIcon, Waypoints, Compass, BarChart, CalendarDays, LogOut } from "lucide-react";
-import default_user from '../../../public/assets/default_user.png'
+// import { useRouter } from 'next/router';
+import { HomeIcon, Waypoints, BarChart, Compass, CalendarDays, LogOut } from "lucide-react";
+import default_user from '../../../public/assets/default_user.png';
+import { usePathname } from 'next/navigation'
+import { useRouter } from "next/navigation";
+import { useClerk } from "@clerk/nextjs";
+
 interface NavSidebarProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const NavSidebar: React.FC<NavSidebarProps> = ({ open, setOpen }) => {
+  const router = useRouter();
+
+    const { user, signOut } = useClerk();
+
+  const pathname = usePathname();
   const links = [
     {
       label: "Journey",
-      href: "/journey",
-      icon: (
-        <Waypoints className="text-white bg-[#6EC1E4] p-2 rounded-sm w-[35px] h-[35px]" />
-
-      ),
+      href: "/dashboard/journey",
+      icon: Waypoints,
     },
     {
       label: "Analytics",
-      href: "/analytics",
-      icon: (
-        <BarChart className="text-[#6EC1E4] bg-[#D9D9D9] bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]" />
-      ),
+      href: "/dashboard/analytics",
+      icon: BarChart,
     },
     {
       label: "Community",
-      href: "/commmunity",
-      icon: (
-        <Compass className="text-[#6EC1E4] bg-[#D9D9D9] bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]" />
-      ),
+      href: "/dashboard/community",
+      icon: Compass,
     },
     {
-      label: "Setings",
-      href: "/settings",
-      icon: (
-        <IconSettings className="text-[#6EC1E4] bg-[#D9D9D9] bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]" />
-      ),
+      label: "Settings",
+      href: "/dashboard/settings",
+      icon: IconSettings,
     },
     {
       label: "Calendar",
-      href: "/calendar",
-      icon: (
-        <CalendarDays className="text-[#6EC1E4] bg-[#D9D9D9] bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]" />
-      ),
+      href: "/dashboard/calendar",
+      icon: CalendarDays,
     },
   ];
 
@@ -59,21 +56,34 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ open, setOpen }) => {
         <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <Logo />
           <div className="mt-8 flex flex-col gap-2">
-            {links.map((link, idx) => (
-              <SidebarLink key={idx} link={link} />
-            ))}
+            {links.map((link, idx) => {
+              const isActive = pathname.includes(link.href);
+              const IconComponent = link.icon;
+              return (
+                <SidebarLink
+                  key={idx}
+                  link={{
+                    ...link,
+                    icon: (
+                      <IconComponent
+                        className={`${
+                          isActive ? 'text-white bg-[#6EC1E4]' : 'text-[#6EC1E4] bg-[#D9D9D9] bg-opacity-10'
+                        } p-2 rounded-sm w-[35px] h-[35px]`}
+                      />
+                    ),
+                  }}
+                />
+              );
+            })}
           </div>
         </div>
 
-
-
         <div className="flex flex-col gap-10">
-
           <div className="flex flex-col gap-3 border-b-[1px] border-gray-600 py-6">
             <SidebarLink
               link={{
                 label: "Jiya Gupta",
-                href: "#",
+                href: "/dashboard/profile",
                 icon: (
                   <Image
                     src={default_user}
@@ -86,11 +96,9 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ open, setOpen }) => {
               }}
             />
 
-            <LogOut className="text-[#6EC1E4] bg-[#D9D9D9] bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]" />
+            <LogOut  onClick={() => signOut()} className="cursor-pointer text-[#6EC1E4] bg-[#D9D9D9] bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]" />
           </div>
-
           <ThemeSwitch />
-
         </div>
       </SidebarBody>
     </Sidebar>
@@ -98,9 +106,7 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ open, setOpen }) => {
 };
 
 const Logo = () => (
-  <Link href="#" className="font-normal flex  items-center text-sm text-black py-1 relative z-20">
-    {/* <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" /> */}
-
+  <Link href="/" className="font-normal flex items-center text-sm text-black py-1 relative z-20">
     <HomeIcon className="text-white bg-gray-400 p-2 rounded-sm w-[35px] h-[35px]" />
   </Link>
 );
