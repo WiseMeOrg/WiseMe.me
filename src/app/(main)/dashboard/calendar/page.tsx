@@ -8,23 +8,23 @@ import { Button } from '@/components/ui/button';
 // Dummy task data with labels - using opacity classes for better color adaptation
 const dummyTasks = {
   "2024-11-10": [
-    { id: 1, title: "Team Meeting", label: "Work", color: "bg-blue-500/90" },
+    { id: 1, title: "Team Meeting", label: "Work", color: "bg-[#6EC1E4]" },
     { id: 2, title: "Project Review", label: "Important", color: "bg-red-500/90" }
   ],
   "2024-11-15": [
-    { id: 3, title: "Go", label: "Meeting", color: "bg-green-500/90" },
-    { id: 4, title: "DSA", label: "Meeting", color: "bg-green-500/90" }
+    { id: 3, title: "Go", label: "Meeting", color: "bg-yellow-500/90" },
+    { id: 4, title: "DSA", label: "Meeting", color: "bg-yellow-500/90" }
   ],
   "2024-11-20": [
-    { id: 4, title: "Code Review", label: "Development", color: "bg-purple-500/90" },
-    { id: 5, title: "Deploy Updates", label: "Development", color: "bg-purple-500/90" }
+    { id: 4, title: "Code Review", label: "Development", color: "bg-yellow-500/90" },
+    { id: 5, title: "Deploy Updates", label: "Development", color: "bg-yellow-500/90" }
   ],
   "2024-11-08": [
-    { id: 6, title: "Python", label: "Personal", color: "bg-yellow-500/90" }
+    { id: 6, title: "Python", label: "Personal", color: "bg-red-500/90" }
   ],
   "2024-11-12": [
-    { id: 7, title: "Python", label: "Social", color: "bg-pink-500/90" },
-    { id: 8, title: "DSA", label: "Work", color: "bg-blue-500/90" }
+    { id: 7, title: "Python", label: "Social", color: "bg-yellow-500/90" },
+    { id: 8, title: "DSA", label: "Work", color: "bg-yellow-500/90" }
   ]
 };
 
@@ -70,7 +70,7 @@ const Calendar = () => {
   for (let i = 0; i < firstDayOfMonth; i++) {
     days.push(
       <td key={`empty-${i}`} className="relative w-24 h-24 border dark:border-gray-600 border-gray-200 p-1">
-        <div className="absolute inset-1 dark:bg-gray-800/50 bg-gray-100/50 rounded"></div>
+        <div className="absolute inset-1 dark:bg-gray-900/30 bg-gray-100/50 rounded"></div>
       </td>
     );
   }
@@ -87,7 +87,7 @@ const Calendar = () => {
           className={`absolute inset-1 rounded overflow-hidden ${
             isToday 
               ? 'dark:bg-gray-700 bg-gray-200' 
-              : 'dark:bg-gray-800 bg-white'
+              : 'dark:bg-gray-900/50 bg-white'
           }`}
         >
           <div className="p-2 h-full flex flex-col">
@@ -139,7 +139,7 @@ const Calendar = () => {
         variants={containerVariants}
         className="p-4 min-h-screen "
       >
-        <Card className="w-full max-w-5xl mx-auto border-gray-300 dark:border-gray-600 dark:bg-gray-900 bg-white">
+        <Card className="w-full max-w-5xl mx-auto border-gray-300 dark:border-gray-600 dark:bg-[#292A2E] bg-white">
           <CardContent className="p-4">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold dark:text-white text-gray-900">
