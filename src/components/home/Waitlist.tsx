@@ -5,9 +5,10 @@ import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input"
 import { z } from 'zod';
 
 export function PlaceholdersAndVanishInputDemo() {
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [statusMessage, setStatusMessage] = useState({ text: "", type: "error" });
+  const [statusMessage, setStatusMessage] = useState<{ text: string; type: 'error' | 'success' }>({
+    text: "",
+    type: "error"
+  });
   const emailRef = useRef("");
 
   const placeholders = [
@@ -15,33 +16,42 @@ export function PlaceholdersAndVanishInputDemo() {
     "Enter your email"
   ];
 
-  const emailSchema = z.string().email().refine((email) => {
-    const [localPart, domain] = email.split('@');
-    
-    if (localPart.length > 64 || domain.length > 255) return false;
-    
-    const domainParts = domain.split('.');
-    if (domainParts.length < 2) return false;
-    const tld = domainParts[domainParts.length - 1];
-    if (tld.length < 2) return false;
-    
-    const disposableDomains = ['tempmail.com', 'throwaway.com'];
-    if (disposableDomains.some(d => domain.includes(d))) return false;
-    
-    return true;
-  }, "Please enter a valid email address");
+  // Common email domain typos
+  const commonDomainTypos: { [key: string]: string } = {
+    'gmil.com': 'gmail.com',
+    'gmal.com': 'gmail.com',
+    'gmai.com': 'gmail.com',
+    'gmail.co': 'gmail.com'
+  };
 
-  const validateEmail = (email: string) => {
+  // Email validation schema using Zod's built-in email validation
+  const emailSchema = z.string()
+    .min(1, "Email is required")
+    .trim()
+    .toLowerCase()
+    .email("Invalid email address. Please try again")
+    .superRefine((email, ctx) => {
+      const [, domain] = email.split('@');
+      if (commonDomainTypos[domain]) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `Invalid email address. Did you mean @${commonDomainTypos[domain]}?`
+        });
+        return false;
+      }
+      return true;
+    });
+
+  const validateEmail = (email: string): { success: boolean; error: string } => {
     const result = emailSchema.safeParse(email);
     return {
       success: result.success,
-      error: result.success ? null : result.error.issues[0]?.message
+      error: result.success ? "" : result.error.errors[0]?.message || "Invalid email address. Please try again"
     };
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    emailRef.current = value;
+    emailRef.current = e.target.value;
     if (statusMessage.text) {
       setStatusMessage({ text: "", type: "error" });
     }
@@ -52,8 +62,8 @@ export function PlaceholdersAndVanishInputDemo() {
 
     const validationResult = validateEmail(emailRef.current);
     if (!validationResult.success) {
-      setStatusMessage({ 
-        text: validationResult.error || "Please enter a valid email address",
+      setStatusMessage({
+        text: validationResult.error,
         type: "error"
       });
       return;
@@ -62,40 +72,36 @@ export function PlaceholdersAndVanishInputDemo() {
     try {
       const response = await fetch("https://api.wiseme.me/api/v1/join-waitlist", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: emailRef.current }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: emailRef.current.toLowerCase() })
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Submission successful:", data);
-        setStatusMessage({ 
+        setStatusMessage({
           text: "You have joined the waitlist!",
           type: "success"
         });
+        emailRef.current = "";
         if (e.target instanceof HTMLFormElement) {
           e.target.reset();
         }
-        emailRef.current = "";
       } else {
-        if (response.status === 400) {
-          setStatusMessage({ 
-            text: "Email is already registered",
-            type: "error"
-          });
-        } else {
-          setStatusMessage({ 
-            text: "Something went wrong. Please try again later",
-            type: "error"
-          });
-        }
-        console.error("Error submitting:", data);
+        // Check both response status and data for email already registered case
+        const isEmailRegistered = 
+          response.status === 400 || 
+          (data && data.message && data.message.toLowerCase().includes('already registered'));
+
+        setStatusMessage({
+          text: isEmailRegistered
+            ? "Email is already registered"
+            : "Something went wrong. Please try again later",
+          type: "error"
+        });
       }
     } catch (error) {
-      setStatusMessage({ 
+      setStatusMessage({
         text: "Connection error. Please try again later.",
         type: "error"
       });
@@ -109,11 +115,10 @@ export function PlaceholdersAndVanishInputDemo() {
         Join us to get early access, notified as soon as registration opens, priority access to our platform
       </h2>
       {statusMessage.text && (
-        <div className={`mb-4 text-center ${
-          statusMessage.type === "success" 
-            ? "text-green-500 dark:text-green-400" 
+        <div className={`mb-4 text-center ${statusMessage.type === "success"
+            ? "text-green-500 dark:text-green-400"
             : "text-red-500 dark:text-red-400"
-        }`}>
+          }`}>
           {statusMessage.text}
         </div>
       )}
