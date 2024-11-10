@@ -5,9 +5,14 @@ import CustomSidebar from "@/components/dashboard/SidebarD";
 import { cn } from "@/utils";
 import { ThemeProvider } from "next-themes";
 import NavSidebar from "@/components/dashboard/SideNav";
+import { usePathname } from "next/navigation";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
+  const pathName = usePathname();
+  const hideSidebarRoutes = ["/community", "/analytics"]; 
+  const shouldRenderSidebar = hideSidebarRoutes.some(route => pathName.includes(route));
+
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
@@ -18,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
       >
         <NavSidebar open={open} setOpen={setOpen} />
-        <CustomSidebar open={open} setOpen={setOpen} />
+        {!shouldRenderSidebar && <CustomSidebar open={open} setOpen={setOpen} />}
 
 
         <div className="flex flex-1 h-screen w-screen">

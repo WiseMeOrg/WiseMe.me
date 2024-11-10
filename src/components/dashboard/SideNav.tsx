@@ -38,11 +38,11 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ open, setOpen }) => {
       href: "/dashboard/community",
       icon: Compass,
     },
-    {
-      label: "Settings",
-      href: "/dashboard/settings",
-      icon: IconSettings,
-    },
+    // {
+    //   label: "Settings",
+    //   href: "/dashboard/settings",
+    //   icon: IconSettings,
+    // },
     {
       label: "Calendar",
       href: "/dashboard/calendar",
