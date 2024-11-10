@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-const New = () => {
-=======
 "use client";
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -140,7 +136,6 @@ const New: React.FC = () => {
     }
   };
 
->>>>>>> 972661fb0044d9aed1ca7e99a440f612cffb49b2
   return (
     <div className="h-[90vh] flex flex-col">
       <div className="flex-1 overflow-y-scroll px-4 space-y-6">
@@ -245,8 +240,4 @@ const New: React.FC = () => {
     </div>
   );
 };
-<<<<<<< HEAD
-=======
-
->>>>>>> 972661fb0044d9aed1ca7e99a440f612cffb49b2
 export default New;
