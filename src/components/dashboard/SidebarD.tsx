@@ -101,7 +101,7 @@ const CustomSidebar: React.FC<CustomSidebarProps> = ({ open, setOpen }) => {
                 transition={{
                   duration: 0.5,
                   ease: [0.4, 0.0, 0.2, 1],
-                  delay: idx * 0.3,
+                  delay: (idx) * 0.3,
                 }}
                 className="text-2xl px-0 md:text-5xl w-[100%] lg:text-7xl font-semibold text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto "
               >
