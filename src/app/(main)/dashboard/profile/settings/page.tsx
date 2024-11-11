@@ -14,7 +14,7 @@ const Settings = () => {
 
         <motion.div initial={{ opacity: 0, y: 10, }} animate={{ opacity: 1, y: [10, -5, 0], }} transition={{ duration: 0.8,delay:0.6, ease: [0.4, 0.0, 0.2, 1], }}>
 
-        <div className="bg-white dark:bg-[#292A2E] dark:bg-opacity-35 text-black dark:text-white p-6 rounded-lg shadow-lg">
+        <div className="bg-white dark:bg-[#292A2E] mt-8 dark:bg-opacity-35 text-black dark:text-white p-6 rounded-lg shadow-lg">
 
           <p className="mb-4 mx-4 text-gray-400 text-sm font-light">
             At WiseMe, we collect personal and usage data to improve your experience. We do not sell your data but may share it with trusted service providers. <br />
