@@ -240,5 +240,4 @@ const New: React.FC = () => {
     </div>
   );
 };
-
 export default New;
