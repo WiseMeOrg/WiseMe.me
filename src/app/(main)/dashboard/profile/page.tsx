@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useAuth } from '@clerk/clerk-react';
+import { useAuth } from '@clerk/nextjs';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Pencil, X } from 'lucide-react';
 import { motion } from 'framer-motion';
