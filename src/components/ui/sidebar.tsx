@@ -3,7 +3,7 @@ import { cn } from "@/utils";
 import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { IconHome, IconMenu2, IconX } from "@tabler/icons-react";
 
 interface Links {
   label: string;
@@ -71,10 +71,38 @@ export const Sidebar = ({
 };
 
 export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
+
+  const mobileNavLinks = [
+    {
+      label: "Home",
+      href: "/home",
+      icon: <IconHome />,
+    },
+    {
+      label: "Profile",
+      href: "/profile",
+      icon: <IconHome />,
+    },
+    {
+      label: "Settings",
+      href: "/settings",
+      icon: <IconHome />,
+    },
+  ];
+
   return (
     <>
       <DesktopSidebar {...props} />
-      <MobileSidebar {...(props as React.ComponentProps<"div">)} />
+      {/* <MobileSidebar {...(props as React.ComponentProps<"div">)} /> */}
+      <MobileSidebar
+        navLinks={mobileNavLinks} // Pass the navLinks array here
+        className="custom-class"
+      // open={open}
+      // setOpen={setOpen}
+      // animate={animate}
+      >
+        {/* Optional children */}
+      </MobileSidebar>
     </>
   );
 };
@@ -108,52 +136,77 @@ export const DesktopSidebar = ({
 export const MobileSidebar = ({
   className,
   children,
+  open: openProp,
+  setOpen: setOpenProp,
+  animate,
+  navLinks, // Accept navLinks as a prop
   ...props
-}: React.ComponentProps<"div">) => {
+}: {
+  className?: string;
+  children?: React.ReactNode;
+  open?: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  animate?: boolean;
+  navLinks?: Links[]; // Define type for navLinks as an array of Links
+  [key: string]: any; // Accepting additional custom props
+}) => {
   const { open, setOpen } = useSidebar();
+  const sidebarOpen = openProp !== undefined ? openProp : open;
+  const sidebarSetOpen = setOpenProp !== undefined ? setOpenProp : setOpen;
+
+
+
+
   return (
-    <>
-      <div
-        className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full"
-        )}
-        {...props}
-      >
-        <div className="flex justify-end z-20 w-full">
-          <IconMenu2
-            className="text-neutral-800 dark:text-neutral-200"
-            onClick={() => setOpen(!open)}
-          />
-        </div>
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ x: "-100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "-100%", opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: "easeInOut",
-              }}
-              className={cn(
-                "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
-                className
-              )}
-            >
-              <div
-                className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200"
-                onClick={() => setOpen(!open)}
-              >
-                <IconX />
-              </div>
-              {children}
-            </motion.div>
-          )}
-        </AnimatePresence>
+    <div
+      className={cn(
+        "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
+        className
+      )}
+      {...props} // Spread remaining custom props here
+    >
+      <div className="flex justify-end z-20 w-full">
+        <IconMenu2
+          className="text-neutral-800 dark:text-neutral-200"
+          onClick={() => sidebarSetOpen(!sidebarOpen)}
+        />
       </div>
-    </>
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            initial={{ x: "-100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "-100%", opacity: 0 }}
+            transition={{
+              duration: 0.3,
+              ease: "easeInOut",
+            }}
+            className={cn(
+              "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
+              className
+            )}
+          >
+            <div
+              className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200"
+              onClick={() => sidebarSetOpen(!sidebarOpen)}
+            >
+              <IconX />
+            </div>
+            {navLinks && (
+              <div className="flex flex-col gap-4 mt-12">
+                {navLinks.map((link, index) => (
+                  <SidebarLink key={index} link={link} />
+                ))}
+              </div>
+            )}
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
+
 
 export const SidebarLink = ({
   link,
@@ -165,26 +218,31 @@ export const SidebarLink = ({
   props?: LinkProps;
 }) => {
   const { open, animate } = useSidebar();
-  return (
-    <Link
-      href={link.href}
-      className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2 bg-[#6EC1E4] bg-opacity-30 rounded-md p-3",
-        className
-      )}
-      {...props}
-    >
-      {link.icon}
 
-      <motion.span
-        animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+  return (
+    <motion.div initial={{ opacity: 0, x: 10, }} animate={{ opacity: 1, x: [-20, 5, 0], }} transition={{ duration: 0.8, delay: 0.6, ease: [0.4, 0.0, 0.2, 1], }}>
+
+      <Link
+        href={link.href}
+        className={cn(
+          "flex items-center justify-start gap-2  group/sidebar py-2 bg-[#6EC1E4] bg-opacity-30 rounded-md p-3",
+          className
+        )}
+        {...props}
       >
-        {link.label}
-      </motion.span>
-    </Link>
+        {link.icon}
+
+        <motion.span
+          animate={{
+            display: (open ? "inline-block" : "none"),
+            opacity: (open ? 1 : 0),
+          }}
+          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        >
+          {link.label}
+        </motion.span>
+      </Link>
+    </motion.div>
+
   );
 };
