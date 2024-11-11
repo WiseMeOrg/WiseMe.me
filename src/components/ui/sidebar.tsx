@@ -5,10 +5,14 @@ import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconHome, IconMenu2, IconX } from "@tabler/icons-react";
 import { HomeIcon, Waypoints, BarChart, Compass, CalendarDays, LogOut } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+
 interface Links {
   label: string;
   href: string;
   icon: React.JSX.Element | React.ReactNode;
+  children?: Links[]; // Nested links
 }
 
 interface SidebarContextProps {
@@ -71,39 +75,60 @@ export const Sidebar = ({
 };
 
 export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
-
-  const mobileNavLinks = [
+  const mobileNavLinks: Links[] = [
     {
       label: "Home",
-      href: "/home",
-      icon: <HomeIcon className="text-white bg-gray-400 p-2 rounded-sm w-[35px] h-[35px]" />      ,
+      href: "/dashboard/journey",
+      icon: <HomeIcon className="text-white bg-gray-400 p-2 rounded-sm w-[35px] h-[35px]" />,
+    },
+    {
+      label: "Journey",
+      href: "/dashboard/journey",
+      icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+      children: [
+        {
+          label: "New",
+          href: "/dashboard/journey/new",
+          icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+        }
+      ],
+    },
+    {
+      label: "Analytics",
+      href: "/dashboard/analytics",
+      icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+    },
+    {
+      label: "Community",
+      href: "/dashboard/community",
+      icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+    },
+    {
+      label: "Calendar",
+      href: "/dashboard/calendar",
+      icon: <IconHome />,
     },
     {
       label: "Profile",
-      href: "/profile",
-      icon: <IconHome  
-      className="text-neutral-800 dark:text-neutral-200"/>,
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-      icon: <IconHome />,
+      href: "/dashboard/profile",
+      icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+      children: [
+        {
+          label: "General Settings",
+          href: "/dashboard/profile/settings",
+          icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+        },
+      ],
     },
   ];
 
   return (
     <>
       <DesktopSidebar {...props} />
-      {/* <MobileSidebar {...(props as React.ComponentProps<"div">)} /> */}
       <MobileSidebar
-        navLinks={mobileNavLinks} // Pass the navLinks array here
+        navLinks={mobileNavLinks}
         className="custom-class"
-      // open={open}
-      // setOpen={setOpen}
-      // animate={animate}
-      >
-        {/* Optional children */}
-      </MobileSidebar>
+      />
     </>
   );
 };
@@ -155,18 +180,31 @@ export const MobileSidebar = ({
   const sidebarOpen = openProp !== undefined ? openProp : open;
   const sidebarSetOpen = setOpenProp !== undefined ? setOpenProp : setOpen;
 
-
-
-
   return (
     <div
       className={cn(
-        "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
+        "h-12 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
         className
       )}
       {...props} // Spread remaining custom props here
     >
-      <div className="flex justify-end z-20 w-full">
+      <div className="flex justify-between z-20 w-full items-center">
+       
+      <Link href="#" className="font-black flex space-x-2 gap-4 items-center text-xl text-black  z-20">
+    <Image
+      src="/assets/logo.png"
+      alt="WiseMe"
+      width={24}
+      height={24}
+      quality={100}
+      className="rounded-sm bg-foreground/10  "
+    />
+    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-medium  text-black dark:text-white whitespace-pre">
+      WiseMe
+    </motion.span>
+  </Link>
+  
+
         <IconMenu2
           className="text-neutral-800 dark:text-neutral-200"
           onClick={() => sidebarSetOpen(!sidebarOpen)}
@@ -196,7 +234,29 @@ export const MobileSidebar = ({
             {navLinks && (
               <div className="flex flex-col gap-4 mt-12">
                 {navLinks.map((link, index) => (
-                  <SidebarLink key={index} link={link} />
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: [-20, 5, 0] }}
+                    transition={{ delay: index * 0.3, duration: 0.8, ease: [0.4, 0.0, 0.2, 1] }}
+                  >
+                    <SidebarLink link={link} />
+                    {link.children && (
+                      <div className="ml-8">
+                        {link.children.map((childLink, childIndex) => (
+                          <motion.div
+                            key={childIndex}
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={{ opacity: 1, x: [-20, 5, 0] }}
+                            transition={{ delay: (index + childIndex) * 0.3, duration: 0.8, ease: [0.4, 0.0, 0.2, 1] }}
+                            className="mt-3"
+                          >
+                            <SidebarLink link={childLink} />
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
                 ))}
               </div>
             )}
@@ -208,7 +268,6 @@ export const MobileSidebar = ({
   );
 };
 
-
 export const SidebarLink = ({
   link,
   className,
@@ -219,31 +278,44 @@ export const SidebarLink = ({
   props?: LinkProps;
 }) => {
   const { open, animate } = useSidebar();
+  const pathname = usePathname();
+
+  // Check if the current path includes the link's href
+  const isActive = pathname.includes(link.href);
 
   return (
-    <motion.div initial={{ opacity: 0, x: 10, }} animate={{ opacity: 1, x: [-20, 5, 0], }} transition={{ duration: 0.8, delay: 0.6, ease: [0.4, 0.0, 0.2, 1], }}>
-
+    <motion.div
+      initial={{ opacity: 0, x: 10 }}
+      animate={{ opacity: 1, x: [-20, 5, 0] }}
+      transition={{ duration: 0.8, delay: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+    >
       <Link
         href={link.href}
         className={cn(
-          "flex items-center justify-start gap-2  group/sidebar py-2 bg-[#6EC1E4] bg-opacity-30 rounded-md p-3",
+          "flex items-center justify-start gap-2 group/sidebar py-2 rounded-md p-3",
+          isActive
+            ? "bg-[#6EC1E4] bg-opacity-70"
+            : "bg-[#6EC1E4] bg-opacity-30 hover:bg-opacity-100",
           className
         )}
         {...props}
       >
         {link.icon}
-
         <motion.span
           animate={{
-            display: (open ? "inline-block" : "none"),
-            opacity: (open ? 1 : 0),
+            display: "inline-block",
+            opacity: 1,
           }}
-          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+          className={cn(
+            "text-sm transition duration-150 whitespace-pre inline-block !p-0 !m-0",
+            isActive
+              ? "text-white"
+              : "text-neutral-700 dark:text-neutral-200 group-hover/sidebar:translate-x-1"
+          )}
         >
           {link.label}
         </motion.span>
       </Link>
     </motion.div>
-
   );
 };

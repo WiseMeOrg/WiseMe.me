@@ -8,26 +8,27 @@ import { Button } from '@/components/ui/button';
 // Dummy task data with labels - using opacity classes for better color adaptation
 const dummyTasks: {
   [key: string]: { id: number; title: string; label: string; color: string }[];
-} = {
-  "2024-11-10": [
-    { id: 1, title: "Team Meeting", label: "Work", color: "bg-[#6EC1E4]" },
-    { id: 2, title: "Project Review", label: "Important", color: "bg-red-500/90" }
-  ],
-  "2024-11-15": [
-    { id: 3, title: "Go", label: "Meeting", color: "bg-yellow-500/90" },
-    { id: 4, title: "DSA", label: "Meeting", color: "bg-yellow-500/90" }
-  ],
-  "2024-11-20": [
-    { id: 4, title: "Code Review", label: "Development", color: "bg-yellow-500/90" },
-    { id: 5, title: "Deploy Updates", label: "Development", color: "bg-yellow-500/90" }
-  ],
-  "2024-11-08": [
-    { id: 6, title: "Python", label: "Personal", color: "bg-red-500/90" }
-  ],
-  "2024-11-12": [
-    { id: 7, title: "Python", label: "Social", color: "bg-yellow-500/90" },
-    { id: 8, title: "DSA", label: "Work", color: "bg-yellow-500/90" }
-  ]
+} = 
+{
+  // "2024-11-10": [
+  //   { id: 1, title: "Team Meeting", label: "Work", color: "bg-[#6EC1E4]" },
+  //   { id: 2, title: "Project Review", label: "Important", color: "bg-red-500/90" }
+  // ],
+  // "2024-11-15": [
+  //   { id: 3, title: "Go", label: "Meeting", color: "bg-yellow-500/90" },
+  //   { id: 4, title: "DSA", label: "Meeting", color: "bg-yellow-500/90" }
+  // ],
+  // "2024-11-20": [
+  //   { id: 4, title: "Code Review", label: "Development", color: "bg-yellow-500/90" },
+  //   { id: 5, title: "Deploy Updates", label: "Development", color: "bg-yellow-500/90" }
+  // ],
+  // "2024-11-08": [
+  //   { id: 6, title: "Python", label: "Personal", color: "bg-red-500/90" }
+  // ],
+  // "2024-11-12": [
+  //   { id: 7, title: "Python", label: "Social", color: "bg-yellow-500/90" },
+  //   { id: 8, title: "DSA", label: "Work", color: "bg-yellow-500/90" }
+  // ]
 };
 
 const Calendar = () => {

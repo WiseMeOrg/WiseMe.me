@@ -27,8 +27,8 @@ const New: React.FC = () => {
       id: '1',
       type: 'bot',
       content: 'What tech do you want to learn?',
-      options: ['Python', 'Python', 'Python', 'Python', 'Python', 'Python',
-                'Python', 'Python', 'Python', 'Python', 'Python', 'Python'],
+      options: ['Python', 'Go', 'Rust', 'Javascript', 'HTML', 'PostgreSQL',
+                'React','Typescript', 'NextJS', 'Redis', 'Vue', 'PHP'],
       answered: false
     }
   ]);

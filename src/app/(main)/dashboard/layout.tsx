@@ -10,8 +10,11 @@ import { usePathname } from "next/navigation";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathName = usePathname();
-  const hideSidebarRoutes = ["/community", "/analytics"]; 
-  const shouldRenderSidebar = hideSidebarRoutes.some(route => pathName.includes(route));
+  // const hideSidebarRoutes = [
+  //   "",
+  //   // "/community", "/analytics"
+  // ]; 
+  // const shouldRenderSidebar = hideSidebarRoutes.some(route => pathName.includes(route));
 
 
   return (
@@ -23,7 +26,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
       >
         <NavSidebar open={open} setOpen={setOpen} />
-        {!shouldRenderSidebar && <CustomSidebar open={open} setOpen={setOpen} />}
+        {
+        // !shouldRenderSidebar && 
+
+        <CustomSidebar open={open} setOpen={setOpen} />
+        }
 
 
         <div className="flex flex-1 h-screen w-screen">
