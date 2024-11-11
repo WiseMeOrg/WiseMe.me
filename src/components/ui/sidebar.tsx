@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { IconHome, IconMenu2, IconX } from "@tabler/icons-react";
 import { HomeIcon, Waypoints, BarChart, Compass, CalendarDays, LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 interface Links {
   label: string;
@@ -182,12 +183,28 @@ export const MobileSidebar = ({
   return (
     <div
       className={cn(
-        "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
+        "h-12 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
         className
       )}
       {...props} // Spread remaining custom props here
     >
-      <div className="flex justify-end z-20 w-full">
+      <div className="flex justify-between z-20 w-full items-center">
+       
+      <Link href="#" className="font-black flex space-x-2 gap-4 items-center text-xl text-black  z-20">
+    <Image
+      src="/assets/logo.png"
+      alt="WiseMe"
+      width={24}
+      height={24}
+      quality={100}
+      className="rounded-sm bg-foreground/10  "
+    />
+    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-medium  text-black dark:text-white whitespace-pre">
+      WiseMe
+    </motion.span>
+  </Link>
+  
+
         <IconMenu2
           className="text-neutral-800 dark:text-neutral-200"
           onClick={() => sidebarSetOpen(!sidebarOpen)}
