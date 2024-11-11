@@ -4,7 +4,8 @@ import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconHome, IconMenu2, IconX } from "@tabler/icons-react";
-import { HomeIcon, Waypoints, BarChart, Compass, CalendarDays, LogOut } from "lucide-react";
+import { HomeIcon, Waypoints, BarChart, Compass, CalendarDays, LogOut,CircleUserRound } from "lucide-react";
+import { IconArrowLeft, IconBrandTabler, IconSettings,  } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
@@ -84,39 +85,60 @@ export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
     {
       label: "Journey",
       href: "/dashboard/journey",
-      icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+      icon:
+        <Waypoints className='text-white bg-[#A7A9A7] dark:bg-[#D9D9D9] dark:bg-opacity-30 bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]'
+        />
+      ,
       children: [
         {
           label: "New",
           href: "/dashboard/journey/new",
-          icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+          icon:
+            <IconBrandTabler className='text-white bg-[#A7A9A7] dark:bg-[#D9D9D9] dark:bg-opacity-30 bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]'
+            />
+          ,
         }
       ],
     },
     {
       label: "Analytics",
       href: "/dashboard/analytics",
-      icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+      icon:
+        <BarChart className='text-white bg-[#A7A9A7] dark:bg-[#D9D9D9] dark:bg-opacity-30 bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]'
+        />
+      ,
     },
     {
       label: "Community",
       href: "/dashboard/community",
-      icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+      icon:
+        <Compass className='text-white bg-[#A7A9A7] dark:bg-[#D9D9D9] dark:bg-opacity-30 bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]'
+        />
+      ,
     },
     {
       label: "Calendar",
       href: "/dashboard/calendar",
-      icon: <IconHome />,
+      icon:
+        <CalendarDays className='text-white bg-[#A7A9A7] dark:bg-[#D9D9D9] dark:bg-opacity-30 bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]'
+        />
+      ,
     },
     {
       label: "Profile",
       href: "/dashboard/profile",
-      icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+      icon:
+        <CircleUserRound className='text-white bg-[#A7A9A7] dark:bg-[#D9D9D9] dark:bg-opacity-30 bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]'
+        />
+      ,
       children: [
         {
           label: "General Settings",
           href: "/dashboard/profile/settings",
-          icon: <IconHome className="text-neutral-800 dark:text-neutral-200" />,
+          icon:
+            <IconSettings className='text-white bg-[#A7A9A7] dark:bg-[#D9D9D9] dark:bg-opacity-30 bg-opacity-10 p-2 rounded-sm w-[35px] h-[35px]'
+            />
+          ,
         },
       ],
     },
@@ -189,21 +211,21 @@ export const MobileSidebar = ({
       {...props} // Spread remaining custom props here
     >
       <div className="flex justify-between z-20 w-full items-center">
-       
-      <Link href="#" className="font-black flex space-x-2 gap-4 items-center text-xl text-black  z-20">
-    <Image
-      src="/assets/logo.png"
-      alt="WiseMe"
-      width={24}
-      height={24}
-      quality={100}
-      className="rounded-sm bg-foreground/10  "
-    />
-    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-medium  text-black dark:text-white whitespace-pre">
-      WiseMe
-    </motion.span>
-  </Link>
-  
+
+        <Link href="#" className="font-black flex space-x-2 gap-4 items-center text-xl text-black  z-20">
+          <Image
+            src="/assets/logo.png"
+            alt="WiseMe"
+            width={24}
+            height={24}
+            quality={100}
+            className="rounded-sm bg-foreground/10  "
+          />
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-medium  text-black dark:text-white whitespace-pre">
+            WiseMe
+          </motion.span>
+        </Link>
+
 
         <IconMenu2
           className="text-neutral-800 dark:text-neutral-200"
