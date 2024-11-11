@@ -75,19 +75,37 @@ export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
   const mobileNavLinks = [
     {
       label: "Home",
-      href: "/home",
+      href: "/dashboard/journey",
       icon: <HomeIcon className="text-white bg-gray-400 p-2 rounded-sm w-[35px] h-[35px]" />      ,
     },
     {
-      label: "Profile",
-      href: "/profile",
+      label: "Journey",
+      href: "/dashboard/journey",
       icon: <IconHome  
       className="text-neutral-800 dark:text-neutral-200"/>,
     },
     {
-      label: "Settings",
-      href: "/settings",
+      label: "Analytics",
+      href: "/dashboard/journey",
+      icon: <IconHome  
+      className="text-neutral-800 dark:text-neutral-200"/>,
+    },
+    {
+      label: "Community",
+      href: "/dashboard/community",
+      icon: <IconHome  
+      className="text-neutral-800 dark:text-neutral-200"/>,
+    },
+    {
+      label: "Calendar",
+      href: "/dashboard/calendar",
       icon: <IconHome />,
+    },
+    {
+      label: "Profile",
+      href: "/dashboard/profile",
+      icon: <IconHome  
+      className="text-neutral-800 dark:text-neutral-200"/>,
     },
   ];
 
