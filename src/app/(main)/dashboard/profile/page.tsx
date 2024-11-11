@@ -9,6 +9,14 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Pencil, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+interface FormData {
+  name:string,
+  avatar: string;
+  bio: string;
+  x_handle: string;
+  linkedin_url: string;
+  github_username: string;
+}
 
 const ProfileEditPage = () => {
   const { getToken, isLoaded } = useAuth();
@@ -18,7 +26,8 @@ const ProfileEditPage = () => {
   const [isEditingAvatar, setIsEditingAvatar] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
+    name:'',
     avatar: '',
     bio: '',
     x_handle: '',
@@ -41,6 +50,7 @@ const ProfileEditPage = () => {
         if (response.ok) {
           const data = await response.json();
           setFormData({
+            name:data.name,
             avatar: data.avatar || '',
             bio: data.bio || '',
             x_handle: data.x_handle || '',
@@ -64,7 +74,7 @@ const ProfileEditPage = () => {
     }
   }, [isLoaded, getToken]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -72,7 +82,7 @@ const ProfileEditPage = () => {
     }));
   };
 
-  const createNewProfile = async (token) => {
+  const createNewProfile = async (token: string | null) => {
     const createResponse = await fetch('https://api.wiseme.me/api/v1/profile/me/create', {
       method: 'POST',
       headers: {
@@ -90,7 +100,7 @@ const ProfileEditPage = () => {
     return await createResponse.json();
   };
 
-  const updateProfile = async (token) => {
+  const updateProfile = async (token: string | null) => {
     const updateResponse = await fetch('https://api.wiseme.me/api/v1/profile/me/update', {
       method: 'PATCH',
       headers: {
@@ -112,7 +122,7 @@ const ProfileEditPage = () => {
   };
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
@@ -125,7 +135,7 @@ const ProfileEditPage = () => {
         await updateProfile(token);
         setSuccess('Profile updated successfully!');
       } catch (updateError) {
-        if (updateError.message.includes('404')) {
+        if ((updateError as Error).message.includes('404')) {
           try {
             await createNewProfile(token);
             setSuccess('Profile created successfully!');
@@ -139,7 +149,7 @@ const ProfileEditPage = () => {
 
       setIsEditingAvatar(false);
     } catch (err) {
-      setError(err.message);
+      setError((err as Error).message);
     } finally {
       setIsLoading(false);
     }
@@ -154,8 +164,6 @@ const ProfileEditPage = () => {
   }
 
   return (
-
-
     <div className="min-h-screen  text-white p-8">
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-between items-start mb-8 gap-8">
@@ -175,7 +183,6 @@ const ProfileEditPage = () => {
                         value={formData.name}
                         placeholder='Your Name'
                         onChange={handleInputChange}
-
                       />
                       <Pencil className="w-4 h-4 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     </div>
