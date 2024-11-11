@@ -54,6 +54,24 @@ const CustomSidebar: React.FC<CustomSidebarProps> = ({ open, setOpen }) => {
         }
       ]);
     }
+    else if (pathName.includes('/calendar')) {
+      setLinks([
+        {
+          label: "View",
+          href: "/dashboard/calendar",
+          icon: (
+            <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+          ),
+        },
+        {
+          label: "Sync With Google Calendar",
+          href: "",
+          icon: (
+            <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+          ),
+        }
+      ]);
+    }
     else {
       setLinks([]);
     }
