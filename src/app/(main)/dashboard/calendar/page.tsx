@@ -6,7 +6,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 // Dummy task data with labels - using opacity classes for better color adaptation
-const dummyTasks = {
+const dummyTasks: {
+  [key: string]: { id: number; title: string; label: string; color: string }[];
+} = {
   "2024-11-10": [
     { id: 1, title: "Team Meeting", label: "Work", color: "bg-[#6EC1E4]" },
     { id: 2, title: "Project Review", label: "Important", color: "bg-red-500/90" }
@@ -36,7 +38,7 @@ const Calendar = () => {
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
 
-  const getTasksForDate = (date) => {
+  const getTasksForDate = (date: number) => {
     const dateString = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
     return dummyTasks[dateString] || [];
   };
@@ -65,7 +67,7 @@ const Calendar = () => {
 
   const weeks = [];
   let days = [];
-  
+
   // Add padding for first week
   for (let i = 0; i < firstDayOfMonth; i++) {
     days.push(
@@ -84,19 +86,17 @@ const Calendar = () => {
       <td key={day} className="relative w-24 h-24 border dark:border-gray-600 border-gray-200 p-1">
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className={`absolute inset-1 rounded overflow-hidden ${
-            isToday 
-              ? 'dark:bg-gray-700 bg-gray-200' 
+          className={`absolute inset-1 rounded overflow-hidden ${isToday
+              ? 'dark:bg-gray-700 bg-gray-200'
               : 'dark:bg-gray-900/50 bg-white'
-          }`}
+            }`}
         >
           <div className="p-2 h-full flex flex-col">
             <div className="flex justify-between items-center">
-              <span className={`font-bold text-sm ${
-                isToday 
-                  ? 'dark:text-white text-gray-900' 
+              <span className={`font-bold text-sm ${isToday
+                  ? 'dark:text-white text-gray-900'
                   : 'dark:text-gray-300 text-gray-700'
-              }`}>
+                }`}>
                 {day}
               </span>
             </div>
