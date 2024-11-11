@@ -4,7 +4,7 @@ import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconHome, IconMenu2, IconX } from "@tabler/icons-react";
-
+import { HomeIcon, Waypoints, BarChart, Compass, CalendarDays, LogOut } from "lucide-react";
 interface Links {
   label: string;
   href: string;
@@ -76,12 +76,13 @@ export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
     {
       label: "Home",
       href: "/home",
-      icon: <IconHome />,
+      icon: <HomeIcon className="text-white bg-gray-400 p-2 rounded-sm w-[35px] h-[35px]" />      ,
     },
     {
       label: "Profile",
       href: "/profile",
-      icon: <IconHome />,
+      icon: <IconHome  
+      className="text-neutral-800 dark:text-neutral-200"/>,
     },
     {
       label: "Settings",
