@@ -49,13 +49,14 @@ const ProfileEditPage = () => {
 
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           setFormData({
             name:data.name,
-            avatar: data.avatar || '',
-            bio: data.bio || '',
-            x_handle: data.x_handle || '',
-            linkedin_url: data.linkedin_url || '',
-            github_username: data.github_username || '',
+            avatar: data.profile.avatar || '',
+            bio: data.profile.bio || '',
+            x_handle: data.profile.x_handle || '',
+            linkedin_url: data.profile.linkedin_url || '',
+            github_username: data.profile.github_username || '',
           });
         } else if (response.status === 404) {
           // Profile does not exist, continue with empty formData
