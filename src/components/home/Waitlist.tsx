@@ -111,7 +111,7 @@ export function PlaceholdersAndVanishInputDemo() {
 
   return (
     <div className="h-[45rem] mt-[-31rem] md:mt-[-29rem] flex flex-col justify-center items-center px-4">
-      <h2 className="mb-16 z-10 sm:mb-20 md:text-xl text-center text-lg md:w-[50vw] dark:text-white text-white">
+      <h2 className="mb-16 z-10 sm:mb-20 md:text-xl text-center text-lg md:w-[50vw] dark:text-black text-white">
         Join us to get early access, notified as soon as registration opens, priority access to our platform
       </h2>
       {statusMessage.text && (
