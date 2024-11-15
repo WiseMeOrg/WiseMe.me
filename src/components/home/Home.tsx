@@ -27,7 +27,7 @@ export function HeroHighlightDemo() {
           duration: 0.5,
           ease: [0.4, 0.0, 0.2, 1],
         }}
-        className="text-2xl px-0 md:text-5xl w-[100%] lg:text-7xl font-semibold text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto "
+        className="text-2xl px-0 md:text-5xl w-[100%] lg:text-7xl font-semibold text-white dark:text-black max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto "
       > 
         Accelerate Your Learning Journey with{" "}
         <Highlight className="text-black dark:text-white">
